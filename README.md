@@ -18,6 +18,8 @@
 
 <div align="center">
 <img src="docs/ui-played.png" alt="The Checkpoint web UI after a turn: the traveler says they are heading home, the guard clears them, the suspicion gauge reads 27 with Cleared You are through, and the live Decider 2B readout shows story consistent 0.85, suspicion score 0.25, and a wave through at confidence 0.63" width="100%"/>
+
+<em>A 2 minute gameplay capture is in <a href="docs/the-checkpoint-gameplay.mp4">docs/the-checkpoint-gameplay.mp4</a>.</em>
 </div>
 
 ---
