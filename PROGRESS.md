@@ -26,12 +26,14 @@ suspicion gauge.
 - [x] 7. game.py: turn loop, player-claims state, win/lose. VALIDATED: honest->passed, liar->meter climbs + confidence collapses
 - [x] 8. Tune question wording/criteria for a clean suspicion spread
 - [x] 9. Web UI (FastAPI + animated suspicion gauge) using frontend skills. VERIFIED end to end: /api/new + /api/say return Bedrock narration + Decider ruling.
-- [~] 10. Tests: client, gate logic, schema validation
-- [ ] 11. README (styled like simplynadaf/ai-agent-observability-aws), no em dashes
-- [ ] 12. Article draft (docs/ARTICLE.md) per challenge rules
-- [ ] 13. Demo video plan (docs/DEMO_SCRIPT.md), <3 min shot list
-- [ ] 14. Create GitHub repo (via MCP), push, verify
-- [ ] 15. Final validation pass end to end
+- [x] 10. Tests: client, gate logic, schema validation. 8/8 offline unit tests pass; scripted live scenarios validated.
+- [x] 11. README (styled like simplynadaf/ai-agent-observability-aws), no em dashes. Verified clean.
+- [x] 12. Article draft (docs/ARTICLE.md) per challenge rules
+- [x] 13. Demo video plan (docs/DEMO_SCRIPT.md), <3 min shot list
+- [x] 14. Create GitHub repo (via gh, token auth, no password), push, verify. Live: https://github.com/simplynadaf/the-checkpoint
+- [x] 15. Final validation pass end to end. UI 200, servers up, screenshot captured, repo verified, topics set.
+
+## DONE. All 15 steps complete. Repo: https://github.com/simplynadaf/the-checkpoint
 
 ## Environment facts (verified on this box)
 - Host: CPU only (no CUDA). Decider inference will be seconds per call -> designed as a
