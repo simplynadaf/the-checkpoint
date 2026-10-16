@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Checkpoint: a game decided by Strands Decider 2B</title>
+<meta name="description" content="Talk your way past an AI border guard. A Bedrock LLM speaks; Strands Decider 2B decides, with calibrated confidence." />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root { --accent: 210 90% 56%; --warn: 38 95% 55%; --danger: 2 80% 55%; }
+  * { -webkit-font-smoothing: antialiased; }
+  body { font-family: 'Space Grotesk', system-ui, sans-serif; background: #070a0f; color: #e8edf5; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  /* animated gradient orbs */
+  .orb { position: fixed; border-radius: 50%; filter: blur(90px); opacity: 0.45; pointer-events: none; z-index: 0; }
+  .orb-1 { width: 520px; height: 520px; top: -12%; left: -8%; background: radial-gradient(circle, rgba(37,110,220,0.7), transparent 70%); animation: float 11s ease-in-out infinite; }
+  .orb-2 { width: 460px; height: 460px; bottom: -14%; right: -8%; background: radial-gradient(circle, rgba(220,70,60,0.35), transparent 70%); animation: float 14s ease-in-out infinite -4s; }
+  @keyframes float { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(28px,-22px) scale(1.05)} 66%{transform:translate(-20px,16px) scale(.96)} }
+  /* film grain */
+  body::after { content:''; position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .glass { background: rgba(255,255,255,0.035); backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 36px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05); }
+  .bubble-guard { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); }
+  .bubble-you { background: hsl(var(--accent) / 0.16); border: 1px solid hsl(var(--accent) / 0.3); }
+  /* gauge */
+  .gauge-track { background: conic-gradient(from 180deg, #28c76f 0deg, #f6c343 90deg, #ff6b4a 150deg, #e23b3b 180deg); }
+  .btn { transition: transform .4s cubic-bezier(.32,.72,0,1), background .3s; }
+  .btn:active { transform: scale(.97); }
+  input::placeholder { color: rgba(232,237,245,.35); }
+  .reveal { opacity: 0; transform: translateY(14px); }
+</style>
+</head>
+<body class="min-h-[100dvh] overflow-x-hidden">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-5 py-10 md:py-14">
+    <!-- header -->
+    <header class="reveal flex items-center justify-between mb-8">
+      <div>
+        <p class="mono text-xs tracking-[0.25em] text-sky-400/80 uppercase">Night Border Checkpoint</p>
+        <h1 class="text-3xl md:text-5xl font-700 tracking-tight mt-1" style="text-wrap:balance">The Checkpoint</h1>
+        <p class="text-sm text-slate-400 mt-2 max-w-xl">
+          A Bedrock model speaks as the guard. <span class="text-slate-200">Strands Decider 2B</span>
+          decides whether to trust you, with a calibrated confidence on every call. The gauge is that number.
+        </p>
+      </div>
+      <div class="hidden md:flex flex-col items-end gap-1 mono text-[11px] text-slate-500">
+        <span>#strands-decider-2b</span>
+        <span>#policy</span>
+      </div>
+    </header>
+
+    <div class="grid lg:grid-cols-[1.3fr_1fr] gap-5">
+      <!-- conversation -->
+      <section class="reveal glass rounded-3xl p-1.5">
+        <div class="rounded-[22px] bg-[#0a0e15]/70 p-5 flex flex-col h-[62vh] min-h-[460px]">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <span class="mono text-xs text-slate-400">Sgt. Vance is on duty</span>
+          </div>
+          <div id="log" class="flex-1 overflow-y-auto space-y-3 pr-1"></div>
+          <form id="form" class="mt-4 flex gap-2">
+            <input id="say" autocomplete="off" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-sky-400/60"
+                   placeholder="Say something to the guard..." />
+            <button class="btn rounded-xl px-5 py-3 bg-sky-500 text-white font-600 text-sm flex items-center gap-2" type="submit">
+              Speak
+            </button>
+          </form>
+          <div class="flex items-center justify-between mt-3">
+            <button id="restart" class="mono text-[11px] text-slate-500 hover:text-slate-300">restart scene</button>
+            <span id="latency" class="mono text-[11px] text-slate-600"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- decision panel -->
+      <section class="reveal space-y-5">
+        <!-- suspicion gauge -->
+        <div class="glass rounded-3xl p-1.5">
+          <div class="rounded-[22px] bg-[#0a0e15]/70 p-6">
+            <p class="mono text-[11px] tracking-widest text-slate-400 uppercase mb-4">Suspicion meter</p>
+            <div class="relative w-44 h-44 mx-auto">
+              <div class="gauge-track absolute inset-0 rounded-full" style="mask:radial-gradient(transparent 58%, #000 59%);-webkit-mask:radial-gradient(transparent 58%, #000 59%);opacity:.25"></div>
+              <svg class="absolute inset-0 -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
+                <circle id="arc" cx="50" cy="50" r="42" fill="none" stroke="hsl(var(--accent))" stroke-width="7"
+                        stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264"/>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span id="meterPct" class="mono text-4xl font-600">15</span>
+                <span class="mono text-[10px] text-slate-500 tracking-widest uppercase">suspicion</span>
+              </div>
+            </div>
+            <p id="verdict" class="text-center mt-4 text-sm text-slate-300">Awaiting the traveler.</p>
+          </div>
+        </div>
+
+        <!-- raw decider readout -->
+        <div class="glass rounded-3xl p-1.5">
+          <div class="rounded-[22px] bg-[#0a0e15]/70 p-5">
+            <p class="mono text-[11px] tracking-widest text-slate-400 uppercase mb-3">Decider 2B readout</p>
+            <div class="space-y-3 mono text-xs">
+              <div>
+                <div class="flex justify-between text-slate-400"><span>story consistent (noul)</span><span id="consVal">&middot;</span></div>
+                <div class="h-1.5 bg-white/5 rounded mt-1 overflow-hidden"><div id="consBar" class="h-full bg-emerald-400/70 rounded" style="width:0%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-slate-400"><span>suspicion score</span><span id="suspVal">&middot;</span></div>
+                <div class="h-1.5 bg-white/5 rounded mt-1 overflow-hidden"><div id="suspBar" class="h-full bg-amber-400/70 rounded" style="width:0%"></div></div>
+              </div>
+              <div class="pt-1">
+                <div class="flex justify-between text-slate-400"><span>guard instinct (choice)</span><span id="reactConf" class="text-slate-500">&middot;</span></div>
+                <div id="reactVal" class="mt-1 text-sky-300">&middot;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="reveal text-center mono text-[11px] text-slate-600 mt-8">
+      Bedrock writes the words. Decider 2B makes the call. The pause is the guard studying you.
+    </p>
+  </main>
+
+<script>
+const SESSION = 'sess-' + Math.random().toString(36).slice(2);
+const log = document.getElementById('log');
+const form = document.getElementById('form');
+const say = document.getElementById('say');
+
+gsap.to('.reveal', { opacity:1, y:0, duration:.8, stagger:.08, ease:'power3.out' });
+
+function addLine(role, text) {
+  const wrap = document.createElement('div');
+  wrap.className = 'flex ' + (role === 'you' ? 'justify-end' : 'justify-start');
+  const b = document.createElement('div');
+  b.className = (role === 'you' ? 'bubble-you' : 'bubble-guard') + ' max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed';
+  b.textContent = text;
+  wrap.appendChild(b);
+  log.appendChild(wrap);
+  log.scrollTop = log.scrollHeight;
+  gsap.from(b, { opacity:0, y:10, duration:.4, ease:'power2.out' });
+}
+
+function thinking(on) {
+  let t = document.getElementById('thinking');
+  if (on && !t) {
+    t = document.createElement('div');
+    t.id = 'thinking';
+    t.className = 'flex justify-start';
+    t.innerHTML = '<div class="bubble-guard rounded-2xl px-4 py-2.5 text-sm text-slate-400 mono">the guard studies you<span class="dots"></span></div>';
+    log.appendChild(t); log.scrollTop = log.scrollHeight;
+    let n = 0; t._i = setInterval(() => { n = (n+1)%4; t.querySelector('.dots').textContent = '.'.repeat(n); }, 350);
+  } else if (!on && t) { clearInterval(t._i); t.remove(); }
+}
+
+function setGauge(meter) {
+  const pct = Math.round(meter * 100);
+  const arc = document.getElementById('arc');
+  const off = 264 - 264 * meter;
+  gsap.to(arc, { strokeDashoffset: off, duration: .9, ease:'power2.out' });
+  const color = meter < .35 ? 'hsl(150 65% 50%)' : meter < .65 ? 'hsl(38 95% 55%)' : 'hsl(2 80% 55%)';
+  arc.setAttribute('stroke', color);
+  const el = document.getElementById('meterPct');
+  gsap.to({v: parseInt(el.textContent) || 0}, { v: pct, duration:.9, ease:'power2.out',
+    onUpdate() { el.textContent = Math.round(this.targets()[0].v); } });
+}
+
+function setReadout(r, probs) {
+  document.getElementById('consVal').textContent = r.consistent.toFixed(2);
+  document.getElementById('consBar').style.width = (r.consistent*100)+'%';
+  document.getElementById('suspVal').textContent = r.suspicion.toFixed(2);
+  document.getElementById('suspBar').style.width = (r.suspicion*100)+'%';
+  document.getElementById('reactVal').textContent = r.reaction.replace(/_/g,' ');
+  document.getElementById('reactConf').textContent = 'conf ' + r.reaction_confidence.toFixed(2);
+  const v = document.getElementById('verdict');
+  const map = { continue:'The guard is weighing your story.', passed:'Cleared. You are through.',
+                caught:'Caught in a contradiction. The guard presses you.', alarm:'Alarm raised. Backup incoming.' };
+  v.textContent = map[r.outcome] || '';
+  v.className = 'text-center mt-4 text-sm ' + (r.outcome==='passed'?'text-emerald-300':r.outcome==='alarm'?'text-red-300':r.outcome==='caught'?'text-amber-300':'text-slate-300');
+}
+
+async function newGame() {
+  log.innerHTML = '';
+  setGauge(0.15);
+  const r = await fetch('/api/new', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({session: SESSION})});
+  const d = await r.json();
+  addLine('guard', d.guard);
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const text = say.value.trim();
+  if (!text) return;
+  addLine('you', text);
+  say.value = '';
+  say.disabled = true;
+  thinking(true);
+  const t0 = performance.now();
+  try {
+    const r = await fetch('/api/say', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({session: SESSION, text})});
+    const d = await r.json();
+    thinking(false);
+    if (d.error) { addLine('guard', 'System: ' + d.error); return; }
+    setGauge(d.ruling.meter);
+    setReadout(d.ruling, d.probabilities);
+    addLine('guard', d.guard);
+    document.getElementById('latency').textContent = 'decided in ' + Math.round(d.ruling.latency_ms) + ' ms';
+    if (d.ruling.outcome === 'passed' || d.ruling.outcome === 'alarm') {
+      say.placeholder = d.ruling.outcome === 'passed' ? 'You made it through. Restart to play again.' : 'Game over. Restart to play again.';
+    }
+  } catch (err) {
+    thinking(false);
+    addLine('guard', 'System: the guard is unreachable. Is the server running?');
+  } finally {
+    say.disabled = false; say.focus();
+  }
+});
+
+document.getElementById('restart').addEventListener('click', newGame);
+newGame();
+</script>
+</body>
+</html>

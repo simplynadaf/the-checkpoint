@@ -1,0 +1,8 @@
+# The Checkpoint runtime dependencies (Python 3.11+)
+# Pinned to the versions validated during the build.
+strands-agents==1.61.1
+strands-decider==0.1.0
+boto3==1.43.114
+fastapi==0.143.2
+uvicorn==0.54.0
+httpx==0.28.1

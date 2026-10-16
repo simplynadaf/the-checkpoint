@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Runtime artifacts
+*.log
+*.pid
+decider-server.log
+ui-server.log
+
+# Model cache (never commit weights)
+.hf/
+*.safetensors
+
+# OS
+.DS_Store
