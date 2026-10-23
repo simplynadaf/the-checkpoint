@@ -21,7 +21,7 @@
 
 <br/><br/>
 
-<img src="docs/ui-played.png" alt="The Checkpoint web UI after a turn: the traveler says they are heading home, the guard clears them, the suspicion gauge reads 27 with Cleared You are through, and the live Decider 2B readout shows story consistent 0.85, suspicion score 0.25, and a wave through at confidence 0.63" width="100%"/>
+<img src="docs/ui-played.png" alt="The Checkpoint premium web UI after a turn: a gold and black luxury interface where the traveler says they are heading home, the guard clears them, the suspicion gauge reads 27 with a lit tick dial and Cleared You are through, and the live Decider 2B readout shows story consistent 0.85, suspicion score 0.25, and a wave through at confidence 0.65" width="100%"/>
 
 <br/>
 

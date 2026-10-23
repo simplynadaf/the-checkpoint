@@ -1,7 +1,7 @@
 # The guard that cannot be sweet-talked: a game where Strands Decider 2B makes every call
 
 > Builder Center submission for the Agent Experience Hackathon: Strands Decider.
-> Tags: `#strands-decider-2b` `#policy`. Cover image: `docs/banner.png` (1200x630).
+> Tags: `#strands-decider-2b` `#policy`. Cover image: `docs/banner-builder.png` (1200x675, under 2MB).
 > Paste everything below the line into the article body.
 
 ---

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{width:1200px;height:675px;overflow:hidden;}
+  body{font-family:'Inter',sans-serif;color:#eef1f7;position:relative;
+    background:radial-gradient(900px 600px at 80% -10%,rgba(59,111,224,.24),transparent 60%),
+      radial-gradient(800px 560px at 8% 115%,rgba(217,178,91,.22),transparent 60%),
+      linear-gradient(160deg,#080a10 0%,#06070b 55%,#040509 100%);}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .display{font-family:'Playfair Display',Georgia,serif;}
+  .orb{position:absolute;border-radius:50%;filter:blur(95px);}
+  .orb1{width:560px;height:560px;top:-200px;right:-130px;background:radial-gradient(circle,rgba(59,111,224,.5),transparent 70%);}
+  .orb2{width:480px;height:480px;bottom:-220px;left:-130px;background:radial-gradient(circle,rgba(217,178,91,.34),transparent 70%);}
+  .vig{position:absolute;inset:0;background:radial-gradient(130% 100% at 50% 0%,transparent 52%,rgba(0,0,0,.55) 100%);}
+  .grain{position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 80px;}
+
+  /* hero gate glyph with soft gold glow */
+  .gate{filter:drop-shadow(0 0 40px rgba(217,178,91,.35));margin-bottom:8px;}
+
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:.44em;text-transform:uppercase;color:#d9b25b;margin-top:26px;}
+  h1{font-family:'Playfair Display',serif;font-weight:700;font-size:120px;line-height:.9;margin-top:14px;letter-spacing:-1px;}
+  h1 .gold{font-style:italic;background:linear-gradient(100deg,#f3d998,#d9b25b 45%,#b98f3e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+  /* the one concept line, kept short */
+  .flow{display:flex;align-items:center;gap:22px;margin-top:40px;}
+  .node{display:flex;flex-direction:column;align-items:center;gap:9px;min-width:220px;padding:20px 26px;border-radius:18px;
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);}
+  .node .role{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;}
+  .node .name{font-size:21px;font-weight:600;}
+  .node.speak .role{color:#6f93e6;} .node.decide .role{color:#e7c56f;}
+  .arrow{color:#9aa3b5;}
+</style>
+</head>
+<body>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="vig"></div>
+  <div class="grain"></div>
+
+  <div class="wrap">
+    <svg class="gate" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#d9b25b" stroke-width="1.35" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M5 21V9l7-4 7 4v12"/><path d="M12 5v16" stroke="#f3d998"/><path d="M3 21h18"/>
+    </svg>
+    <div class="eyebrow">◈ Night Border Checkpoint ◈</div>
+    <h1>The <span class="gold">Checkpoint</span></h1>
+
+    <div class="flow">
+      <div class="node speak">
+        <div class="role">Speaks</div>
+        <div class="name">Amazon Bedrock</div>
+      </div>
+      <svg class="arrow" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <div class="node decide">
+        <div class="role">Decides</div>
+        <div class="name">Strands Decider 2B</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

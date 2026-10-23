@@ -23,7 +23,7 @@ Everything the code side needs is done. These are the final human steps to submi
    (YouTube unlisted is fine). The silent source is still at `docs/the-checkpoint-gameplay.mp4`.
 
 2. **Article**: open `docs/ARTICLE.md`, paste into a new Builder Center article, add the repo
-   and video links at the end, publish. A ready 1200x630 cover image is at `docs/banner.png`.
+   and video links at the end, publish. A ready 1200x675 cover image is at `docs/banner-builder.png` (under 2MB).
 
 3. **Submit**: on the hackathon project page, attach the repo link, the article link, and the
    video link. Add both tags: `#strands-decider-2b` and `#policy`.
