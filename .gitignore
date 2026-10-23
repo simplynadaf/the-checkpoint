@@ -15,6 +15,7 @@ ui-server.log
 docs/recording/
 docs/recording4k/
 docs/recording_smooth/
+docs/cards/
 
 # Model cache (never commit weights)
 .hf/

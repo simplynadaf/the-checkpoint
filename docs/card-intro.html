@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{width:1920px;height:1080px;overflow:hidden;}
+  body{font-family:'Inter',sans-serif;color:#eef1f7;position:relative;
+    background:radial-gradient(1200px 800px at 80% -8%,rgba(59,111,224,.22),transparent 60%),
+      radial-gradient(1000px 760px at 8% 115%,rgba(217,178,91,.22),transparent 60%),
+      linear-gradient(160deg,#080a10 0%,#06070b 55%,#040509 100%);}
+  .mono{font-family:'JetBrains Mono',monospace;} .display{font-family:'Playfair Display',Georgia,serif;}
+  .orb{position:absolute;border-radius:50%;filter:blur(110px);}
+  .o1{width:700px;height:700px;top:-220px;right:-160px;background:radial-gradient(circle,rgba(59,111,224,.5),transparent 70%);animation:float 13s ease-in-out infinite;}
+  .o2{width:640px;height:640px;bottom:-260px;left:-170px;background:radial-gradient(circle,rgba(217,178,91,.34),transparent 70%);animation:float 17s ease-in-out infinite -5s;}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.06)}}
+  .vig{position:absolute;inset:0;background:radial-gradient(130% 100% at 50% 40%,transparent 52%,rgba(0,0,0,.55) 100%);}
+  .grain{position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+  .gate{filter:drop-shadow(0 0 50px rgba(217,178,91,.4));opacity:0;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:24px;letter-spacing:.44em;text-transform:uppercase;color:#d9b25b;margin-top:30px;opacity:0;}
+  h1{font-family:'Playfair Display',serif;font-weight:700;font-size:150px;line-height:.9;margin-top:18px;letter-spacing:-2px;opacity:0;}
+  h1 .gold{font-style:italic;background:linear-gradient(100deg,#f3d998,#d9b25b 45%,#b98f3e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{font-size:34px;color:#c3cad8;margin-top:36px;max-width:1100px;line-height:1.4;opacity:0;}
+  .sub b{color:#f3d998;font-weight:600;}
+</style>
+</head>
+<body>
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="vig"></div><div class="grain"></div>
+  <div class="wrap">
+    <svg class="gate" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="#d9b25b" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"><path d="M5 21V9l7-4 7 4v12"/><path d="M12 5v16" stroke="#f3d998"/><path d="M3 21h18"/></svg>
+    <div class="eyebrow">◈ Night Border Checkpoint ◈</div>
+    <h1>The <span class="gold">Checkpoint</span></h1>
+    <div class="sub">An AI border guard you have to outwit. <b>Amazon Bedrock</b> speaks. <b>Strands Decider 2B</b> decides.</div>
+  </div>
+<script>
+  const tl = gsap.timeline();
+  tl.to('.gate',{opacity:1,scale:1,duration:.8,ease:'power2.out',startAt:{scale:.8}})
+    .to('.eyebrow',{opacity:1,y:0,duration:.6,ease:'power2.out',startAt:{y:16}},'-=0.3')
+    .to('h1',{opacity:1,y:0,duration:.8,ease:'power3.out',startAt:{y:30}},'-=0.2')
+    .to('.sub',{opacity:1,y:0,duration:.7,ease:'power2.out',startAt:{y:20}},'-=0.3');
+  window.__introReady = true;
+</script>
+</body>
+</html>
