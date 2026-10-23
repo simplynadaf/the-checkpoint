@@ -10,20 +10,20 @@ Everything the code side needs is done. These are the final human steps to submi
 | Written article on Builder Center | DRAFT READY | `docs/ARTICLE.md` (paste in) |
 | Public repo with source + reusable decision pattern | DONE | https://github.com/simplynadaf/the-checkpoint, `patterns/suspicion_gate.py` |
 | Public live demo (static replay, zero setup) | LIVE | https://simplynadaf.github.io/the-checkpoint/ |
-| Public demo video under three minutes | FOOTAGE READY | `docs/the-checkpoint-gameplay.mp4` (2:06) add voiceover from `docs/DEMO_SCRIPT.md` |
+| Public demo video under three minutes | NARRATED, READY | `docs/the-checkpoint-narrated.mp4` (2:07, AI voiceover) — upload publicly (YouTube unlisted) |
 | One declared decision pattern | DONE | `#policy` (also demonstrates `#guardrails`) |
 | Original agent, not published before | DONE | verified unbuilt |
 | Both tags | TO ADD ON SUBMISSION | `#strands-decider-2b` and `#policy` |
 
 ## Final steps for you
 
-1. **Video**: `docs/the-checkpoint-gameplay.mp4` is a clean 2 minute 6 second screen capture
-   of a cleared honest run and a lying run where suspicion climbs. Record a voiceover over it
-   using `docs/DEMO_SCRIPT.md`, or use it as is if a silent captioned cut is acceptable.
-   Upload it somewhere public (YouTube unlisted is fine).
+1. **Video**: `docs/the-checkpoint-narrated.mp4` is a finished 2 minute 7 second walkthrough
+   with an AI voiceover (Amazon Polly neural) over a cleared honest run and a lying run where
+   suspicion climbs, loudness-normalized and ready to publish. Just upload it somewhere public
+   (YouTube unlisted is fine). The silent source is still at `docs/the-checkpoint-gameplay.mp4`.
 
 2. **Article**: open `docs/ARTICLE.md`, paste into a new Builder Center article, add the repo
-   and video links at the end, publish.
+   and video links at the end, publish. A ready 1200x630 cover image is at `docs/banner.png`.
 
 3. **Submit**: on the hackathon project page, attach the repo link, the article link, and the
    video link. Add both tags: `#strands-decider-2b` and `#policy`.

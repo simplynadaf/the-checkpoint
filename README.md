@@ -17,6 +17,10 @@
 </div>
 
 <div align="center">
+<img src="docs/banner.png" alt="The Checkpoint — an AI border guard you have to outwit. Amazon Bedrock speaks the guard's words; Strands Decider 2B makes every trust decision with calibrated confidence. Tags: strands-decider-2b, policy. Built by Sarvar Nadaf, sarvarnadaf.com" width="100%"/>
+
+<br/><br/>
+
 <img src="docs/ui-played.png" alt="The Checkpoint web UI after a turn: the traveler says they are heading home, the guard clears them, the suspicion gauge reads 27 with Cleared You are through, and the live Decider 2B readout shows story consistent 0.85, suspicion score 0.25, and a wave through at confidence 0.63" width="100%"/>
 
 <br/>
@@ -27,7 +31,7 @@
 
 <br/><br/>
 
-**▶️ [Live demo (static replay, zero setup)](https://simplynadaf.github.io/the-checkpoint/)** · A 2 minute gameplay capture is in <a href="docs/the-checkpoint-gameplay.mp4">docs/the-checkpoint-gameplay.mp4</a>.
+**▶️ [Live demo (static replay, zero setup)](https://simplynadaf.github.io/the-checkpoint/)** · A 2 minute narrated walkthrough is in <a href="docs/the-checkpoint-narrated.mp4">docs/the-checkpoint-narrated.mp4</a>.
 </div>
 
 ---
