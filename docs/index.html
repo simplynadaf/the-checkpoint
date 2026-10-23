@@ -7,99 +7,143 @@
 <meta name="description" content="Talk your way past an AI border guard. Amazon Bedrock speaks; Strands Decider 2B decides, with calibrated confidence. Live static replay of real model output." />
 <meta property="og:title" content="The Checkpoint: decided by Strands Decider 2B" />
 <meta property="og:description" content="An AI border guard you have to outwit. Bedrock writes the words, Decider 2B makes the call." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2306070b'/%3E%3Cpath d='M9 22V11l7-3 7 3v11' fill='none' stroke='%23d9b25b' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M16 8v14' stroke='%23f3d998' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-  body { font-family: 'Space Grotesk', system-ui, sans-serif; background: #070a0f; color: #e8edf5; -webkit-font-smoothing: antialiased; }
-  .mono { font-family: 'JetBrains Mono', monospace; }
-  .orb { position: fixed; border-radius: 50%; filter: blur(90px); opacity: .45; pointer-events: none; z-index: 0; }
-  .orb-1 { width: 520px; height: 520px; top: -12%; left: -8%; background: radial-gradient(circle, rgba(37,110,220,.7), transparent 70%); animation: float 11s ease-in-out infinite; }
-  .orb-2 { width: 460px; height: 460px; bottom: -14%; right: -8%; background: radial-gradient(circle, rgba(220,70,60,.35), transparent 70%); animation: float 14s ease-in-out infinite -4s; }
-  @keyframes float { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(28px,-22px) scale(1.05)} 66%{transform:translate(-20px,16px) scale(.96)} }
-  body::after { content:''; position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.035;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-  .glass { background: rgba(255,255,255,.035); backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 8px 36px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05); }
-  .bubble-guard { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); }
-  .bubble-you { background: hsl(210 90% 56% / .16); border: 1px solid hsl(210 90% 56% / .3); }
-  .btn { transition: transform .4s cubic-bezier(.32,.72,0,1), background .3s; }
-  .btn:active { transform: scale(.97); }
-  .reveal { opacity: 0; transform: translateY(14px); }
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root{--bg:#06070b;--ink:#eef1f7;--muted:#9aa3b5;--gold:#d9b25b;--gold-2:#f3d998;--royal:#3b6fe0;--amber:#f0a73a;--danger:#e2484a;--emerald:#2fd27a;}
+  *{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  html,body{margin:0;}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+    background:radial-gradient(1200px 700px at 78% -10%,rgba(59,111,224,.16),transparent 60%),radial-gradient(1000px 650px at 8% 110%,rgba(217,178,91,.12),transparent 60%),linear-gradient(180deg,#07080d,#06070b 60%,#04050a);
+    background-attachment:fixed;min-height:100dvh;overflow-x:hidden;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .display{font-family:'Playfair Display',Georgia,serif;}
+  .orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+  .orb-1{width:560px;height:560px;top:-14%;left:-10%;background:radial-gradient(circle,rgba(59,111,224,.55),transparent 70%);animation:float 13s ease-in-out infinite;}
+  .orb-2{width:520px;height:520px;bottom:-16%;right:-10%;background:radial-gradient(circle,rgba(217,178,91,.30),transparent 70%);animation:float 17s ease-in-out infinite -5s;}
+  .orb-3{width:380px;height:380px;top:40%;left:55%;background:radial-gradient(circle,rgba(226,72,74,.14),transparent 70%);animation:float 19s ease-in-out infinite -9s;}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(34px,-26px) scale(1.06)}66%{transform:translate(-24px,18px) scale(.95)}}
+  #spotlight{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(420px 420px at var(--mx,50%) var(--my,30%),rgba(217,178,91,.09),transparent 70%);}
+  body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(130% 100% at 50% 0%,transparent 55%,rgba(0,0,0,.55) 100%);}
+  body::after{content:'';position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .glass{position:relative;border-radius:26px;background:linear-gradient(165deg,rgba(255,255,255,.055),rgba(255,255,255,.015));backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 60px -24px rgba(0,0,0,.75),0 2px 0 rgba(255,255,255,.04) inset,0 -1px 0 rgba(0,0,0,.4) inset;}
+  .glass::before{content:'';position:absolute;inset:0;border-radius:26px;padding:1px;pointer-events:none;background:linear-gradient(140deg,rgba(243,217,152,.5),rgba(255,255,255,.04) 30%,transparent 55%,rgba(59,111,224,.3));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;}
+  .inner{border-radius:22px;background:linear-gradient(180deg,rgba(8,10,16,.82),rgba(6,7,12,.9));}
+  .tilt{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.22,.61,.36,1);will-change:transform;}
+  .bubble-guard{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 20px -12px rgba(0,0,0,.7);}
+  .bubble-you{background:linear-gradient(180deg,rgba(217,178,91,.20),rgba(217,178,91,.08));border:1px solid rgba(217,178,91,.35);box-shadow:0 8px 22px -12px rgba(217,178,91,.4);}
+  .btn{position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.32,.72,0,1),box-shadow .35s,filter .35s;}
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.05);}
+  .btn:active{transform:translateY(0) scale(.98);}
+  .btn::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:sheen 5s ease-in-out infinite;}
+  @keyframes sheen{0%,65%{left:-130%}80%,100%{left:150%}}
+  .btn-honest{background:linear-gradient(180deg,#3ee089,#22b765);color:#06240f;font-weight:600;box-shadow:0 10px 24px -10px rgba(47,210,122,.6);}
+  .btn-liar{background:linear-gradient(180deg,#ef6a6c,#d23a3c);color:#2a0607;font-weight:600;box-shadow:0 10px 24px -10px rgba(226,72,74,.6);}
+  .pill{border:1px solid rgba(217,178,91,.3);background:rgba(217,178,91,.08);color:var(--gold-2);}
+  .dutylight{box-shadow:0 0 0 0 rgba(47,210,122,.5);animation:pulse 2.4s ease-out infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,210,122,.5)}70%{box-shadow:0 0 0 7px rgba(47,210,122,0)}100%{box-shadow:0 0 0 0 rgba(47,210,122,0)}}
+  #gaugeGlow{filter:blur(10px);opacity:.55;transition:opacity .5s;}
+  .scene{position:relative;}
+  .scene::before{content:'';position:absolute;inset:0;border-radius:22px;pointer-events:none;z-index:2;background:linear-gradient(180deg,rgba(10,14,22,.9) 0%,transparent 10%,transparent 86%,rgba(6,7,12,.95) 100%);}
+  .scene-scan{position:absolute;inset:0;border-radius:22px;pointer-events:none;opacity:.5;z-index:1;background:repeating-linear-gradient(180deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px);}
+  .tick{stroke:rgba(255,255,255,.12);stroke-width:1.1;}.tick-lit{stroke:var(--gold-2);stroke-width:1.4;}
+  .bar{position:relative;overflow:hidden;}
+  .bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:translateX(-100%);animation:barshine 2.6s ease-in-out infinite;}
+  @keyframes barshine{0%,60%{transform:translateX(-100%)}100%{transform:translateX(220%)}}
+  @keyframes stamp{0%{transform:scale(1.4);opacity:0;letter-spacing:.3em}55%{opacity:1}100%{transform:scale(1);opacity:1;letter-spacing:.12em}}
+  .stamped{animation:stamp .6s cubic-bezier(.2,.8,.2,1) both;}
+  ::-webkit-scrollbar{width:7px}::-webkit-scrollbar-thumb{background:rgba(217,178,91,.25);border-radius:9px}
+  .reveal{opacity:0;transform:translateY(16px);}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body class="min-h-[100dvh] overflow-x-hidden">
+  <div id="spotlight"></div>
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-  <main class="relative z-10 max-w-6xl mx-auto px-5 py-10 md:py-14">
-    <header class="reveal flex items-center justify-between mb-8">
-      <div>
-        <p class="mono text-xs tracking-[0.25em] text-sky-400/80 uppercase">Night Border Checkpoint</p>
-        <h1 class="text-3xl md:text-5xl font-bold tracking-tight mt-1" style="text-wrap:balance">The Checkpoint</h1>
-        <p class="text-sm text-slate-400 mt-2 max-w-xl">
-          A Bedrock model speaks as the guard. <span class="text-slate-200">Strands Decider 2B</span>
-          decides whether to trust you, with a calibrated confidence on every call. The gauge is that number.
-        </p>
-        <p class="mono text-[11px] text-amber-400/70 mt-2">Static replay of real recorded model output. Interactive version in the repo.</p>
+  <main class="relative z-10 max-w-6xl mx-auto px-5 py-10 md:py-16">
+    <header class="reveal text-center mb-10 md:mb-12">
+      <p class="mono text-[11px] tracking-[0.42em] uppercase mb-4" style="color:var(--gold)">◈ Night Border Checkpoint ◈</p>
+      <h1 class="display text-5xl md:text-7xl font-700 tracking-tight leading-[0.95]">
+        The <span style="background:linear-gradient(100deg,#f3d998,#d9b25b 45%,#b98f3e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic">Checkpoint</span>
+      </h1>
+      <p class="text-[15px] md:text-base mt-5 max-w-2xl mx-auto leading-relaxed" style="color:var(--muted)">
+        A Bedrock model speaks as the guard. <span style="color:var(--ink)">Strands Decider 2B</span>
+        decides whether to trust you, with a calibrated confidence on every call. The gauge is that number.
+      </p>
+      <div class="flex items-center justify-center gap-2 mt-5">
+        <span class="pill mono text-[11px] px-3 py-1 rounded-full">#strands-decider-2b</span>
+        <span class="pill mono text-[11px] px-3 py-1 rounded-full">#policy</span>
+        <a href="https://github.com/simplynadaf/the-checkpoint" class="pill mono text-[11px] px-3 py-1 rounded-full hover:brightness-110 transition">repo &#8599;</a>
       </div>
-      <div class="hidden md:flex flex-col items-end gap-1 mono text-[11px] text-slate-500">
-        <span>#strands-decider-2b</span><span>#policy</span>
-        <a href="https://github.com/simplynadaf/the-checkpoint" class="text-sky-400/80 hover:text-sky-300 mt-1">repo &#8599;</a>
-      </div>
+      <p class="mono text-[11px] mt-4" style="color:var(--amber)">Static replay of real recorded model output. Run the live interactive version from the repo.</p>
     </header>
 
-    <div class="grid lg:grid-cols-[1.3fr_1fr] gap-5">
-      <section class="reveal glass rounded-3xl p-1.5">
-        <div class="rounded-[22px] bg-[#0a0e15]/70 p-5 flex flex-col h-[62vh] min-h-[460px]">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-            <span class="mono text-xs text-slate-400">Sgt. Vance is on duty</span>
+    <div class="grid lg:grid-cols-[1.3fr_1fr] gap-6" style="perspective:1400px">
+      <section class="reveal tilt glass p-1.5" id="tiltChat">
+        <div class="inner p-5 md:p-6 flex flex-col h-[62vh] min-h-[480px]">
+          <div class="flex items-center gap-2.5 mb-4 pb-4" style="border-bottom:1px solid rgba(255,255,255,.06)">
+            <span class="w-2.5 h-2.5 rounded-full dutylight" style="background:var(--emerald)"></span>
+            <span class="mono text-xs" style="color:var(--muted)">Sgt. Vance is on duty</span>
+            <span class="mono text-[10px] ml-auto px-2 py-0.5 rounded" style="color:var(--gold);background:rgba(217,178,91,.08);border:1px solid rgba(217,178,91,.2)">GATE 7</span>
           </div>
-          <div id="log" class="flex-1 overflow-y-auto space-y-3 pr-1"></div>
-          <div class="mt-4 flex gap-2">
-            <button id="playHonest" class="btn flex-1 rounded-xl px-4 py-3 bg-emerald-500/90 text-white font-semibold text-sm">Play honest run</button>
-            <button id="playLiar" class="btn flex-1 rounded-xl px-4 py-3 bg-red-500/90 text-white font-semibold text-sm">Play lying run</button>
+          <div class="scene flex-1 min-h-0">
+            <div class="scene-scan"></div>
+            <div id="log" class="relative h-full overflow-y-auto space-y-3.5 pr-1"></div>
           </div>
-          <div class="flex items-center justify-between mt-3">
-            <span class="mono text-[11px] text-slate-500">pick a run to watch</span>
-            <span id="latency" class="mono text-[11px] text-slate-600"></span>
+          <div class="mt-5 flex gap-2.5">
+            <button id="playHonest" class="btn btn-honest flex-1 rounded-2xl px-4 py-3.5 text-sm">Play honest run</button>
+            <button id="playLiar" class="btn btn-liar flex-1 rounded-2xl px-4 py-3.5 text-sm">Play lying run</button>
+          </div>
+          <div class="flex items-center justify-between mt-3.5">
+            <span class="mono text-[11px]" style="color:var(--muted)">pick a run to watch</span>
+            <span id="latency" class="mono text-[11px]" style="color:#5b6376"></span>
           </div>
         </div>
       </section>
 
-      <section class="reveal space-y-5">
-        <div class="glass rounded-3xl p-1.5">
-          <div class="rounded-[22px] bg-[#0a0e15]/70 p-6">
-            <p class="mono text-[11px] tracking-widest text-slate-400 uppercase mb-4">Suspicion meter</p>
-            <div class="relative w-44 h-44 mx-auto">
+      <section class="space-y-6">
+        <div class="reveal tilt glass p-1.5" id="tiltGauge">
+          <div class="inner p-6">
+            <p class="mono text-[11px] tracking-[0.3em] uppercase mb-5 text-center" style="color:var(--gold)">Suspicion Meter</p>
+            <div class="relative w-52 h-52 mx-auto">
+              <svg id="ticks" class="absolute inset-0" viewBox="0 0 100 100"></svg>
+              <svg id="gaugeGlow" class="absolute inset-0 -rotate-90" viewBox="0 0 100 100">
+                <circle id="arcGlow" cx="50" cy="50" r="42" fill="none" stroke="var(--royal)" stroke-width="10" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="224"/>
+              </svg>
               <svg class="absolute inset-0 -rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
-                <circle id="arc" cx="50" cy="50" r="42" fill="none" stroke="hsl(210 90% 56%)" stroke-width="7" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="224"/>
+                <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.055)" stroke-width="7.5"/>
+                <circle id="arc" cx="50" cy="50" r="42" fill="none" stroke="var(--royal)" stroke-width="7.5" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="224"/>
               </svg>
               <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <span id="meterPct" class="mono text-4xl font-semibold">15</span>
-                <span class="mono text-[10px] text-slate-500 tracking-widest uppercase">suspicion</span>
+                <span id="meterPct" class="display text-6xl font-600" style="line-height:1">15</span>
+                <span class="mono text-[10px] tracking-[0.25em] uppercase mt-1" style="color:#5b6376">suspicion</span>
               </div>
             </div>
-            <p id="verdict" class="text-center mt-4 text-sm text-slate-300">Awaiting the traveler.</p>
+            <p id="verdict" class="text-center mt-5 text-sm" style="color:var(--muted)">Awaiting the traveler.</p>
           </div>
         </div>
 
-        <div class="glass rounded-3xl p-1.5">
-          <div class="rounded-[22px] bg-[#0a0e15]/70 p-5">
-            <p class="mono text-[11px] tracking-widest text-slate-400 uppercase mb-3">Decider 2B readout</p>
-            <div class="space-y-3 mono text-xs">
+        <div class="reveal tilt glass p-1.5" id="tiltRead">
+          <div class="inner p-6">
+            <p class="mono text-[11px] tracking-[0.3em] uppercase mb-4" style="color:var(--gold)">Decider 2B Readout</p>
+            <div class="space-y-4 mono text-xs">
               <div>
-                <div class="flex justify-between text-slate-400"><span>story consistent (noul)</span><span id="consVal">&middot;</span></div>
-                <div class="h-1.5 bg-white/5 rounded mt-1 overflow-hidden"><div id="consBar" class="h-full bg-emerald-400/70 rounded" style="width:0%"></div></div>
+                <div class="flex justify-between" style="color:var(--muted)"><span>story consistent · noul</span><span id="consVal" style="color:var(--emerald)">&middot;</span></div>
+                <div class="h-1.5 rounded mt-1.5 overflow-hidden" style="background:rgba(255,255,255,.06)"><div id="consBar" class="bar h-full rounded" style="width:0%;background:linear-gradient(90deg,#1c9d59,var(--emerald))"></div></div>
               </div>
               <div>
-                <div class="flex justify-between text-slate-400"><span>suspicion score</span><span id="suspVal">&middot;</span></div>
-                <div class="h-1.5 bg-white/5 rounded mt-1 overflow-hidden"><div id="suspBar" class="h-full bg-amber-400/70 rounded" style="width:0%"></div></div>
+                <div class="flex justify-between" style="color:var(--muted)"><span>suspicion score</span><span id="suspVal" style="color:var(--amber)">&middot;</span></div>
+                <div class="h-1.5 rounded mt-1.5 overflow-hidden" style="background:rgba(255,255,255,.06)"><div id="suspBar" class="bar h-full rounded" style="width:0%;background:linear-gradient(90deg,#c67e1e,var(--amber))"></div></div>
               </div>
-              <div class="pt-1">
-                <div class="flex justify-between text-slate-400"><span>guard instinct (choice)</span><span id="reactConf" class="text-slate-500">&middot;</span></div>
-                <div id="reactVal" class="mt-1 text-sky-300">&middot;</div>
+              <div class="pt-2" style="border-top:1px solid rgba(255,255,255,.06)">
+                <div class="flex justify-between" style="color:var(--muted)"><span>guard instinct · choice</span><span id="reactConf" style="color:#5b6376">&middot;</span></div>
+                <div id="reactVal" class="mt-2 text-base display" style="color:var(--gold-2)">&middot;</div>
               </div>
             </div>
           </div>
@@ -107,7 +151,7 @@
       </section>
     </div>
 
-    <p class="reveal text-center mono text-[11px] text-slate-600 mt-8">
+    <p class="reveal text-center mono text-[11px] mt-10" style="color:#565e70">
       Bedrock writes the words. Decider 2B makes the call. The pause is the guard studying you.
     </p>
   </main>
@@ -143,7 +187,30 @@ const DATA = {
 };
 
 const log = document.getElementById('log');
-gsap.to('.reveal', { opacity:1, y:0, duration:.8, stagger:.08, ease:'power3.out' });
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+gsap.to('.reveal', { opacity:1, y:0, duration:.9, stagger:.09, ease:'power3.out' });
+
+/* cursor spotlight + card tilt + build tick ring (shared premium behaviors) */
+const spot = document.getElementById('spotlight');
+if (!reduceMotion) {
+  window.addEventListener('pointermove', e => { spot.style.setProperty('--mx', e.clientX+'px'); spot.style.setProperty('--my', e.clientY+'px'); }, {passive:true});
+  document.querySelectorAll('.tilt').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      gsap.to(card, { rotateY:((e.clientX-r.left)/r.width-0.5)*7, rotateX:-((e.clientY-r.top)/r.height-0.5)*7, duration:.5, ease:'power2.out', transformPerspective:1400 });
+    });
+    card.addEventListener('pointerleave', () => gsap.to(card, { rotateX:0, rotateY:0, duration:.7, ease:'elastic.out(1,0.6)' }));
+  });
+}
+const TICKS = 40;
+(function(){
+  const svg = document.getElementById('ticks'); let out='';
+  for (let i=0;i<TICKS;i++){ const a=(-130+(260/(TICKS-1))*i)*Math.PI/180;
+    const x1=50+49*Math.sin(a), y1=50-49*Math.cos(a), x2=50+45.5*Math.sin(a), y2=50-45.5*Math.cos(a);
+    out+=`<line class="tick" x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}"/>`; }
+  svg.innerHTML = out;
+})();
+function litTicks(meter){ const lit=Math.round(meter*(TICKS-1)); document.querySelectorAll('#ticks line').forEach((ln,i)=>ln.setAttribute('class', i<=lit?'tick-lit':'tick')); }
 
 function addLine(role, text) {
   const wrap = document.createElement('div');
@@ -152,36 +219,43 @@ function addLine(role, text) {
   b.className = (role === 'you' ? 'bubble-you' : 'bubble-guard') + ' max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed';
   b.textContent = text;
   wrap.appendChild(b); log.appendChild(wrap); log.scrollTop = log.scrollHeight;
-  gsap.from(b, { opacity:0, y:10, duration:.4, ease:'power2.out' });
+  gsap.from(b, { opacity:0, y:14, scale:.96, filter:'blur(4px)', duration:.5, ease:'power3.out', onComplete(){ b.style.filter='none'; } });
 }
 function thinking(on) {
   let t = document.getElementById('th');
   if (on && !t) {
     t = document.createElement('div'); t.id = 'th'; t.className = 'flex justify-start';
-    t.innerHTML = '<div class="bubble-guard rounded-2xl px-4 py-2.5 text-sm text-slate-400 mono">the guard studies you<span class="d"></span></div>';
+    t.innerHTML = '<div class="bubble-guard rounded-2xl px-4 py-2.5 text-sm mono" style="color:var(--muted)">the guard studies you<span class="d"></span></div>';
     log.appendChild(t); log.scrollTop = log.scrollHeight;
     let n=0; t._i = setInterval(()=>{ n=(n+1)%4; t.querySelector('.d').textContent='.'.repeat(n); },300);
   } else if (!on && t) { clearInterval(t._i); t.remove(); }
 }
+function gaugeColor(m){ return m<.35?'var(--emerald)':m<.65?'var(--amber)':'var(--danger)'; }
 function setGauge(meter) {
-  const pct = Math.round(meter*100); const arc = document.getElementById('arc');
-  gsap.to(arc, { strokeDashoffset: 264-264*meter, duration:.9, ease:'power2.out' });
-  arc.setAttribute('stroke', meter<.35?'hsl(150 65% 50%)':meter<.65?'hsl(38 95% 55%)':'hsl(2 80% 55%)');
-  const el = document.getElementById('meterPct');
-  gsap.to({v:parseInt(el.textContent)||0},{v:pct,duration:.9,ease:'power2.out',onUpdate(){el.textContent=Math.round(this.targets()[0].v);}});
+  const pct = Math.round(meter*100); const col = gaugeColor(meter); const off = 264-264*meter;
+  ['arc','arcGlow'].forEach(id=>{ const c=document.getElementById(id); gsap.to(c,{strokeDashoffset:off,duration:1.0,ease:'power3.out'}); c.setAttribute('stroke',col); });
+  document.getElementById('gaugeGlow').style.opacity = meter<.65?.5:.9;
+  litTicks(meter);
+  const el = document.getElementById('meterPct'); el.style.color = col;
+  el.style.textShadow = meter<.35?'0 0 24px rgba(47,210,122,.45)':meter<.65?'0 0 24px rgba(240,167,58,.5)':'0 0 28px rgba(226,72,74,.6)';
+  gsap.to({v:parseInt(el.textContent)||0},{v:pct,duration:1.0,ease:'power2.out',onUpdate(){el.textContent=Math.round(this.targets()[0].v);}});
+  if (meter>=.65) gsap.fromTo(el,{scale:1.18},{scale:1,duration:.5,ease:'back.out(2.5)'});
 }
 function setReadout(t) {
   document.getElementById('consVal').textContent = t.consistent.toFixed(2);
-  document.getElementById('consBar').style.width = (t.consistent*100)+'%';
+  gsap.to('#consBar',{width:(t.consistent*100)+'%',duration:.8,ease:'power2.out'});
   document.getElementById('suspVal').textContent = t.suspicion.toFixed(2);
-  document.getElementById('suspBar').style.width = (t.suspicion*100)+'%';
-  document.getElementById('reactVal').textContent = t.reaction.replace(/_/g,' ');
+  gsap.to('#suspBar',{width:(t.suspicion*100)+'%',duration:.8,ease:'power2.out'});
+  const rv = document.getElementById('reactVal'); rv.textContent = t.reaction.replace(/_/g,' '); gsap.from(rv,{opacity:0,y:6,duration:.4});
   document.getElementById('reactConf').textContent = 'conf ' + t.conf.toFixed(2);
   document.getElementById('latency').textContent = 'decided in ' + t.latency_ms + ' ms';
   const v = document.getElementById('verdict');
   const map = { continue:'The guard is weighing your story.', passed:'Cleared. You are through.', caught:'Caught in a contradiction.', alarm:'Alarm raised. Backup incoming.' };
   v.textContent = map[t.outcome] || '';
-  v.className = 'text-center mt-4 text-sm ' + (t.outcome==='passed'?'text-emerald-300':t.outcome==='alarm'?'text-red-300':'text-slate-300');
+  v.style.color = t.outcome==='passed'?'var(--emerald)':t.outcome==='alarm'?'var(--danger)':t.outcome==='caught'?'var(--amber)':'var(--muted)';
+  gsap.fromTo(v,{opacity:.4},{opacity:1,duration:.5});
+  if (t.outcome==='passed'||t.outcome==='alarm'){ v.classList.remove('stamped'); void v.offsetWidth; v.classList.add('stamped'); v.style.fontWeight='600'; }
+  else { v.classList.remove('stamped'); v.style.fontWeight='400'; }
 }
 const sleep = ms => new Promise(r=>setTimeout(r,ms));
 let playing = false;
@@ -191,7 +265,7 @@ async function play(which) {
   log.innerHTML = ''; setGauge(0.15);
   document.getElementById('consVal').textContent='\u00b7'; document.getElementById('suspVal').textContent='\u00b7';
   document.getElementById('reactVal').textContent='\u00b7'; document.getElementById('reactConf').textContent='\u00b7';
-  document.getElementById('verdict').textContent='Awaiting the traveler.';
+  document.getElementById('verdict').textContent='Awaiting the traveler.'; document.getElementById('verdict').style.color='var(--muted)';
   const run = DATA[which];
   addLine('guard', run.open); await sleep(900);
   for (const t of run.turns) {
