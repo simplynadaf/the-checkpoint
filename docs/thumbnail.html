@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@700;800;900&family=JetBrains+Mono:wght@600&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+  html,body{width:1280px;height:720px;overflow:hidden;}
+  body{font-family:'Inter',sans-serif;color:#fff;position:relative;
+    background:radial-gradient(760px 520px at 74% 44%,rgba(59,111,224,.3),transparent 62%),
+      radial-gradient(680px 520px at 10% 118%,rgba(217,178,91,.26),transparent 60%),
+      linear-gradient(155deg,#0a0c12 0%,#06070b 55%,#040509 100%);}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);}
+  .o1{width:520px;height:520px;top:-160px;left:-120px;background:radial-gradient(circle,rgba(217,178,91,.4),transparent 70%);}
+  .o2{width:560px;height:560px;bottom:-220px;right:-150px;background:radial-gradient(circle,rgba(226,72,74,.26),transparent 70%);}
+  .grain{position:absolute;inset:0;opacity:.06;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .vig{position:absolute;inset:0;background:radial-gradient(130% 110% at 50% 40%,transparent 50%,rgba(0,0,0,.6) 100%);}
+
+  .left{position:absolute;left:70px;top:0;bottom:0;width:720px;display:flex;flex-direction:column;justify-content:center;z-index:3;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:21px;letter-spacing:.3em;text-transform:uppercase;color:#d9b25b;margin-bottom:14px;}
+  .hook{font-weight:900;font-size:118px;line-height:.92;letter-spacing:-2px;text-shadow:0 6px 40px rgba(0,0,0,.6);}
+  .hook .hl{color:#f3d998;}
+  .hook .strike{color:#fff;}
+  .sub{margin-top:26px;display:flex;align-items:center;gap:14px;font-size:27px;font-weight:700;color:#cfd6e4;}
+  .sub .b{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:9px 16px;}
+  .sub .arrow{color:#d9b25b;font-size:30px;}
+  .sub .gold{color:#f3d998;}
+
+  /* right: the suspicion gauge as visual proof */
+  .gauge-wrap{position:absolute;right:92px;top:50%;transform:translateY(-50%);width:360px;height:360px;z-index:3;}
+  .gauge-wrap svg{position:absolute;inset:0;width:100%;height:100%;}
+  .gnum{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .gnum .n{font-family:'Playfair Display',serif;font-weight:700;font-size:150px;line-height:1;color:#e2484a;text-shadow:0 0 40px rgba(226,72,74,.6);}
+  .gnum .l{font-family:'JetBrains Mono',monospace;font-size:17px;letter-spacing:.28em;text-transform:uppercase;color:#9aa3b5;margin-top:6px;}
+  .glow{filter:blur(14px);opacity:.8;}
+
+  .brand{position:absolute;left:70px;bottom:46px;z-index:3;display:flex;align-items:center;gap:14px;}
+  .brand .gate{filter:drop-shadow(0 0 18px rgba(217,178,91,.4));}
+  .brand .txt{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:34px;}
+  .brand .txt .g{color:#f3d998;}
+  .tags{position:absolute;right:70px;bottom:46px;z-index:3;font-family:'JetBrains Mono',monospace;font-size:16px;color:#d9b25b;text-align:right;line-height:1.7;}
+</style>
+</head>
+<body>
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="vig"></div>
+  <div class="grain"></div>
+
+  <div class="left">
+    <div class="eyebrow">AWS · Strands Decider 2B</div>
+    <div class="hook"><span class="strike">CAN'T BE</span><br><span class="hl">FOOLED</span></div>
+    <div class="sub">
+      <span class="b">Bedrock speaks</span>
+      <span class="arrow">→</span>
+      <span class="b gold">Decider decides</span>
+    </div>
+  </div>
+
+  <!-- gauge -->
+  <div class="gauge-wrap">
+    <svg viewBox="0 0 100 100">
+      <g transform="rotate(-90 50 50)">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="8"/>
+        <circle class="glow" cx="50" cy="50" r="42" fill="none" stroke="#e2484a" stroke-width="11" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="68"/>
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#e2484a" stroke-width="8" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="68"/>
+      </g>
+    </svg>
+    <div class="gnum">
+      <div class="n">74</div>
+      <div class="l">suspicion</div>
+    </div>
+  </div>
+
+  <div class="brand">
+    <svg class="gate" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d9b25b" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M5 21V9l7-4 7 4v12"/><path d="M12 5v16" stroke="#f3d998"/><path d="M3 21h18"/></svg>
+    <div class="txt">The <span class="g">Checkpoint</span></div>
+  </div>
+  <div class="tags">#strands-decider-2b<br>#policy</div>
+</body>
+</html>
