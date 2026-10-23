@@ -11,6 +11,10 @@ venv/
 decider-server.log
 ui-server.log
 
+# Raw recording captures (ship only the final mp4s under docs/)
+docs/recording/
+docs/recording4k/
+
 # Model cache (never commit weights)
 .hf/
 *.safetensors

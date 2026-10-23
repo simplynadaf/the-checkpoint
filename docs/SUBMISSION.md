@@ -10,17 +10,19 @@ Everything the code side needs is done. These are the final human steps to submi
 | Written article on Builder Center | DRAFT READY | `docs/ARTICLE.md` (paste in) |
 | Public repo with source + reusable decision pattern | DONE | https://github.com/simplynadaf/the-checkpoint, `patterns/suspicion_gate.py` |
 | Public live demo (static replay, zero setup) | LIVE | https://simplynadaf.github.io/the-checkpoint/ |
-| Public demo video under three minutes | NARRATED, READY | `docs/the-checkpoint-narrated.mp4` (2:07, AI voiceover) — upload publicly (YouTube unlisted) |
+| Public demo video under three minutes | NARRATED, READY | `docs/the-checkpoint-4k.mp4` (2:14, 4K 3840x2160, AI voiceover, whole UI in one frame) — upload publicly (YouTube unlisted). 1080p cut also at `docs/the-checkpoint-narrated.mp4` |
 | One declared decision pattern | DONE | `#policy` (also demonstrates `#guardrails`) |
 | Original agent, not published before | DONE | verified unbuilt |
 | Both tags | TO ADD ON SUBMISSION | `#strands-decider-2b` and `#policy` |
 
 ## Final steps for you
 
-1. **Video**: `docs/the-checkpoint-narrated.mp4` is a finished 2 minute 7 second walkthrough
-   with an AI voiceover (Amazon Polly neural) over a cleared honest run and a lying run where
-   suspicion climbs, loudness-normalized and ready to publish. Just upload it somewhere public
-   (YouTube unlisted is fine). The silent source is still at `docs/the-checkpoint-gameplay.mp4`.
+1. **Video**: `docs/the-checkpoint-4k.mp4` is a finished 2 minute 14 second 4K (3840x2160)
+   walkthrough with an AI voiceover (Amazon Polly neural) over a cleared honest run and a
+   lying run where suspicion climbs. The whole UI sits in a single frame (no scrolling),
+   loudness-normalized and ready to publish. Just upload it somewhere public (YouTube
+   unlisted is fine). A 1080p cut is at `docs/the-checkpoint-narrated.mp4`; the silent source
+   is at `docs/the-checkpoint-gameplay.mp4`.
 
 2. **Article**: open `docs/ARTICLE.md`, paste into a new Builder Center article, add the repo
    and video links at the end, publish. A ready 1200x675 cover image is at `docs/banner-builder.png` (under 2MB).
