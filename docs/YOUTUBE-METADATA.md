@@ -9,9 +9,9 @@ Visibility for the hackathon: Unlisted is fine (must be publicly reachable by li
 
 ## TITLE (pick one)
 
-**A/B option A — search-optimized (recommended for the hackathon):**
+**A/B option A — SEO-optimized, keyword-front-loaded (recommended):**
 ```
-I built an AI guard you CAN'T talk your way past (Strands Decider 2B + AWS Bedrock)
+Strands Decider 2B: I Built an AI Agent That Can't Be Fooled (AWS Bedrock)
 ```
 
 **A/B option B — curiosity/first-person:**
@@ -19,7 +19,9 @@ I built an AI guard you CAN'T talk your way past (Strands Decider 2B + AWS Bedro
 This AI border guard refuses to be sweet-talked 🛂 (AWS Strands Decider 2B)
 ```
 
-(Keep under ~70 chars so it is not truncated. Both are under the limit.)
+Why A: keyword "Strands Decider 2B" is first (exact-match search is real and growing, and
+existing content is mostly setup tutorials, so the "AI agent that can't be fooled" hook is
+the gap). Names AWS Bedrock for ecosystem search. Under 70 chars so it is not truncated.
 
 ---
 
