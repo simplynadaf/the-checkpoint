@@ -15,6 +15,8 @@
 - **The split:** Amazon Bedrock Nova Pro writes the guard's words. Strands Decider 2B makes every trust decision. The suspicion gauge you watch is the model's own confidence number.
 - **The reusable asset:** `SuspicionGate`, a drop-in Strands intervention any agent can put in front of its committing tools.
 
+---
+
 ## The problem
 
 Give a language model a character to play and it will get talked into anything. If you have
@@ -31,6 +33,8 @@ practice most agents just act and hope.
 I wanted to build the opposite. A guard you genuinely have to outwit, where the decision to
 trust you is made by something calibrated, not by whatever the chat model felt like saying.
 
+---
+
 ## How I solve it
 
 Split the two jobs that an LLM-only NPC tries to do at once.
@@ -41,6 +45,8 @@ Split the two jobs that an LLM-only NPC tries to do at once.
 The guard can no longer be sweet-talked, because its instinct is a calibrated number, not a
 sentence the player coaxed out of it. That is the whole idea, and it is a pattern you can
 lift straight into a real agent.
+
+---
 
 ## What Decider 2B actually is
 
@@ -53,6 +59,8 @@ state costs almost nothing extra because it reads the state once.
 The calibration is the part that matters. When the model says 0.9, it is right about that
 often. That gives you a clean rule you cannot get from a frontier LLM API: act when the
 model is confident, and ask a human when it is not.
+
+---
 
 ## The game: The Checkpoint
 
@@ -69,6 +77,8 @@ and your latest line, and asks Decider three typed questions:
 
 The suspicion gauge on screen is not decoration. It is the probability coming straight out
 of the model. Watch it climb as your story stops adding up.
+
+---
 
 ## The decision, in code
 
@@ -104,6 +114,8 @@ One detail did more for quality than anything else: the criteria. A bare questio
 explicit true and false descriptions, and a one line description per choice option, gave the
 model a clean boundary. If you take one practical thing from this, make it that.
 
+---
+
 ## The reusable pattern: SuspicionGate
 
 The decision is wired in as a Strands intervention, so it sits in front of the guard's
@@ -131,6 +143,8 @@ question instead of committing. `Deny` for a hard stop. Swap in your own questio
 works for refund approvals, posting guardrails, or anything where a cheap calibrated call
 beats a second LLM call.
 
+---
+
 ## What I learned
 
 I ran this on a CPU only box with no GPU. Two honest findings.
@@ -148,6 +162,8 @@ size. The strong, reliable signals were the suspicion score and the confidence c
 would rather report that honestly than pretend the model is magic. It is a 2B experimental
 model, and knowing which of its signals to trust is the actual skill.
 
+---
+
 ## Why a decision model earns its place here
 
 You could ask a second LLM to judge each turn. You should not. A decision model is one
@@ -157,6 +173,8 @@ questions about one state for nearly the price of one. That combination is what 
 guard you cannot sweet-talk feel fast and fair at the same time.
 
 Bedrock writes the words. Decider 2B makes the call.
+
+---
 
 ## The value, plainly
 
@@ -177,6 +195,8 @@ What this adds, beyond a fun demo:
 
 In one line: it turns "the model sounded confident, so we acted" into "the model *was*
 measured as confident and grounded, so we acted, and otherwise we asked."
+
+---
 
 ## Try it
 
