@@ -132,6 +132,9 @@ const SESSION = 'sess-' + Math.random().toString(36).slice(2);
 const log = document.getElementById('log');
 const form = document.getElementById('form');
 const say = document.getElementById('say');
+const defaultPlaceholder = say.getAttribute('placeholder') || 'Say something to the guard...';
+let inFlight = false;   // a turn is being decided right now
+let gameOver = false;   // the run ended (passed or alarm); block further turns until restart
 
 gsap.to('.reveal', { opacity:1, y:0, duration:.8, stagger:.08, ease:'power3.out' });
 
@@ -186,17 +189,26 @@ function setReadout(r, probs) {
 }
 
 async function newGame() {
+  inFlight = false;
+  gameOver = false;
+  say.disabled = false;
+  say.placeholder = defaultPlaceholder;
   log.innerHTML = '';
   setGauge(0.15);
   const r = await fetch('/api/new', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({session: SESSION})});
   const d = await r.json();
   addLine('guard', d.guard);
+  say.focus();
 }
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  // Guard against double submits (Enter spam during the ~10-20s CPU decision)
+  // and against submitting after the run is already over.
+  if (inFlight || gameOver) return;
   const text = say.value.trim();
   if (!text) return;
+  inFlight = true;
   addLine('you', text);
   say.value = '';
   say.disabled = true;
@@ -212,13 +224,20 @@ form.addEventListener('submit', async (e) => {
     addLine('guard', d.guard);
     document.getElementById('latency').textContent = 'decided in ' + Math.round(d.ruling.latency_ms) + ' ms';
     if (d.ruling.outcome === 'passed' || d.ruling.outcome === 'alarm') {
+      gameOver = true;
       say.placeholder = d.ruling.outcome === 'passed' ? 'You made it through. Restart to play again.' : 'Game over. Restart to play again.';
     }
   } catch (err) {
     thinking(false);
     addLine('guard', 'System: the guard is unreachable. Is the server running?');
   } finally {
-    say.disabled = false; say.focus();
+    inFlight = false;
+    // Keep the input locked once the run is over; otherwise re-enable for the next turn.
+    if (gameOver) {
+      say.disabled = true;
+    } else {
+      say.disabled = false; say.focus();
+    }
   }
 });
 
