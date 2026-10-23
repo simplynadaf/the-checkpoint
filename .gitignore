@@ -14,6 +14,7 @@ ui-server.log
 # Raw recording captures (ship only the final mp4s under docs/)
 docs/recording/
 docs/recording4k/
+docs/recording_smooth/
 
 # Model cache (never commit weights)
 .hf/

@@ -1,6 +1,7 @@
 # YouTube Metadata — The Checkpoint (Strands Decider 2B)
 
-Video file: `docs/the-checkpoint-4k.mp4` (4K, 2:14)
+Video file: `docs/the-checkpoint-smooth.mp4` (1080p, 1:06, snappy edit) — recommended upload.
+Alt: `docs/the-checkpoint-4k.mp4` (4K, 2:14) if you prefer the longer 4K cut.
 Thumbnail: `docs/youtube-thumbnail.png` (1280x720)
 Visibility for the hackathon: Unlisted is fine (must be publicly reachable by link).
 
@@ -49,10 +50,10 @@ Built for the AWS Agent Experience Hackathon: Strands Decider.
 ⏱️ CHAPTERS
 ━━━━━━━━━━━━━━━━━━━━━━
 0:00 The problem: AI NPCs get talked into anything
-0:16 What Strands Decider 2B actually is
-0:32 Honest run: cleared with high confidence
-0:56 Lying run: the confidence collapses
-1:50 The reusable SuspicionGate pattern
+0:17 What Strands Decider 2B actually is
+0:29 Honest run: cleared with high confidence
+0:43 Lying run: the confidence collapses
+0:57 Bedrock writes the words, Decider makes the call
 
 ━━━━━━━━━━━━━━━━━━━━━━
 🔗 LINKS
