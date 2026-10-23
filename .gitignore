@@ -23,3 +23,9 @@ docs/cards/
 
 # OS
 .DS_Store
+
+# Marketing/promo assets live in S3, not the repo
+docs/promo/
+docs/PROMO-POSTS.md
+docs/SEO-TITLES.md
+docs/YOUTUBE-METADATA.md
