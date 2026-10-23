@@ -6,17 +6,41 @@
 
 ---
 
-## The problem I wanted to fix
+## At a glance
+
+- **What it is:** The Checkpoint, a social-stealth game. You talk your way past an AI border guard.
+- **Who it is for:** Anyone building an agent that has to decide whether to trust an input before it acts. The game is the fun wrapper around a serious pattern.
+- **The decision handed to Decider 2B:** every turn, should the guard trust this traveler, and how should it react. Three typed questions, one calibrated call.
+- **Decision pattern:** **Policy** (`#policy`). It classifies each incoming line into a reaction before the agent acts. It also demonstrates guardrails, since one of the three questions checks the story is grounded in what the traveler already claimed.
+- **The split:** Amazon Bedrock Nova Pro writes the guard's words. Strands Decider 2B makes every trust decision. The suspicion gauge you watch is the model's own confidence number.
+- **The reusable asset:** `SuspicionGate`, a drop-in Strands intervention any agent can put in front of its committing tools.
+
+## The problem
 
 Give a language model a character to play and it will get talked into anything. If you have
 ever bolted an LLM onto a game NPC, you have seen it: a player types one confident sentence
 and the guard at the gate hands over the key. The model is wonderful at talking and weak at
 holding a firm, consistent line. It has no reliable sense of how sure it is.
 
+This is not only a game problem. The same weakness shows up the moment an agent has to
+*commit* to something: issue the refund, close the account, post the message, run the tool.
+A chat model will happily do it because a user asked confidently, with no calibrated sense
+of whether it should. Asking a second LLM to double-check is slow and expensive, so in
+practice most agents just act and hope.
+
 I wanted to build the opposite. A guard you genuinely have to outwit, where the decision to
 trust you is made by something calibrated, not by whatever the chat model felt like saying.
 
-That is exactly what Strands Decider 2B is for.
+## How I solve it
+
+Split the two jobs that an LLM-only NPC tries to do at once.
+
+- **Talking** stays with the generative model. Amazon Bedrock Nova Pro plays Sergeant Vance: the narration, the questions, the personality.
+- **Deciding** moves to Strands Decider 2B. It never writes a word. It reads the situation and returns a calibrated judgment: how suspicious, is the story consistent, what should the guard do.
+
+The guard can no longer be sweet-talked, because its instinct is a calibrated number, not a
+sentence the player coaxed out of it. That is the whole idea, and it is a pattern you can
+lift straight into a real agent.
 
 ## What Decider 2B actually is
 
@@ -133,6 +157,26 @@ questions about one state for nearly the price of one. That combination is what 
 guard you cannot sweet-talk feel fast and fair at the same time.
 
 Bedrock writes the words. Decider 2B makes the call.
+
+## The value, plainly
+
+What this adds, beyond a fun demo:
+
+- **A guardrail you can actually afford.** A calibrated decision is one forward pass with no
+  generation, so it is cheap enough to run on *every* turn and every tool call. A second LLM
+  call as a judge is not. That is the difference between a check you ship and a check you cut.
+- **Confidence you can build a rule on.** Because the model is calibrated, "act when sure,
+  ask when not" becomes a real, tunable threshold instead of a vibe. In the game it is the
+  suspicion meter. In an agent it is the line between auto-approve and escalate-to-human.
+- **Grounding, not just sentiment.** One of the three questions checks the new claim against
+  everything said before. That is the guardrails pattern: catch an input that contradicts
+  itself before the agent commits to it.
+- **Reusable on day one.** The decision ships as `SuspicionGate`, a Strands intervention.
+  Point it at your committing tools, swap in your own questions, and the same proceed / probe
+  / block logic protects refunds, posts, deletes, or any irreversible action.
+
+In one line: it turns "the model sounded confident, so we acted" into "the model *was*
+measured as confident and grounded, so we acted, and otherwise we asked."
 
 ## Try it
 
