@@ -10,7 +10,7 @@ Everything the code side needs is done. These are the final human steps to submi
 | Written article on Builder Center | DRAFT READY | `docs/ARTICLE.md` (paste in) |
 | Public repo with source + reusable decision pattern | DONE | https://github.com/simplynadaf/the-checkpoint, `patterns/suspicion_gate.py` |
 | Public live demo (static replay, zero setup) | LIVE | https://simplynadaf.github.io/the-checkpoint/ |
-| Public demo video under three minutes | NARRATED, READY | `docs/the-checkpoint-4k.mp4` (2:14, 4K 3840x2160, AI voiceover, whole UI in one frame) — upload publicly (YouTube unlisted). 1080p cut also at `docs/the-checkpoint-narrated.mp4` |
+| Public demo video under three minutes | DONE (uploaded) | https://youtu.be/0QMQK89Cj5E (1:29, AI voiceover, intro + gameplay + closing card). Source files in docs/ |
 | One declared decision pattern | DONE | `#policy` (also demonstrates `#guardrails`) |
 | Original agent, not published before | DONE | verified unbuilt |
 | Both tags | TO ADD ON SUBMISSION | `#strands-decider-2b` and `#policy` |

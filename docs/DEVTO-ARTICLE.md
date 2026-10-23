@@ -112,7 +112,7 @@ Bedrock writes the words. Decider 2B makes the call.
 
 - Live demo, zero setup (static replay, costs nothing to run): https://simplynadaf.github.io/the-checkpoint/
 - Code and the reusable SuspicionGate pattern: https://github.com/simplynadaf/the-checkpoint
-- 90 second walkthrough: [YOUTUBE_URL_HERE]
+- 90 second walkthrough: https://youtu.be/0QMQK89Cj5E
 
 Clone it, start the Decider server, start the web game, and see how long it takes you to get past Sergeant Vance.
 

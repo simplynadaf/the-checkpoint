@@ -185,7 +185,7 @@ zero-setup live replay you can open right now, built from real recorded model ou
 
 - Live demo (no setup): https://simplynadaf.github.io/the-checkpoint/
 - Repo (source + the SuspicionGate pattern): https://github.com/simplynadaf/the-checkpoint
-- Demo video: [add your upload link here]
+- Demo video: https://youtu.be/0QMQK89Cj5E
 
 Clone it, start the Decider server, start the web game, and see how long it takes you to get
 past Sergeant Vance.

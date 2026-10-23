@@ -31,7 +31,7 @@
 
 <br/><br/>
 
-**▶️ [Live demo (static replay, zero setup)](https://simplynadaf.github.io/the-checkpoint/)** · A 90-second narrated walkthrough is in <a href="docs/the-checkpoint-full.mp4">docs/the-checkpoint-full.mp4</a> (intro, gameplay, and closing card, AI voiceover). Shorter and 4K cuts are in docs/ too.
+**▶️ [Watch the 90-second demo on YouTube](https://youtu.be/0QMQK89Cj5E)** · **[Live demo (static replay, zero setup)](https://simplynadaf.github.io/the-checkpoint/)** · The video file is also in <a href="docs/the-checkpoint-full.mp4">docs/the-checkpoint-full.mp4</a> (intro, gameplay, and closing card, AI voiceover). Shorter and 4K cuts are in docs/ too.
 </div>
 
 ---
