@@ -19,7 +19,15 @@
 <div align="center">
 <img src="docs/ui-played.png" alt="The Checkpoint web UI after a turn: the traveler says they are heading home, the guard clears them, the suspicion gauge reads 27 with Cleared You are through, and the live Decider 2B readout shows story consistent 0.85, suspicion score 0.25, and a wave through at confidence 0.63" width="100%"/>
 
-<em>A 2 minute gameplay capture is in <a href="docs/the-checkpoint-gameplay.mp4">docs/the-checkpoint-gameplay.mp4</a>.</em>
+<br/>
+
+<img src="docs/lying-run.gif" alt="A lying run: as the traveler contradicts their own story, the reaction confidence collapses and the suspicion meter climbs until the guard stops trusting them" width="100%"/>
+
+<em>Watch the suspicion meter climb and the reaction confidence collapse as the traveler contradicts themselves. Nobody wrote that rule; the model's own confidence falls apart.</em>
+
+<br/><br/>
+
+**▶️ [Live demo (static replay, zero setup)](https://simplynadaf.github.io/the-checkpoint/)** · A 2 minute gameplay capture is in <a href="docs/the-checkpoint-gameplay.mp4">docs/the-checkpoint-gameplay.mp4</a>.
 </div>
 
 ---

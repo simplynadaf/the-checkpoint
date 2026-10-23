@@ -9,6 +9,7 @@ Everything the code side needs is done. These are the final human steps to submi
 | Agent uses Decider 2B for a meaningful decision, paired with Bedrock | DONE | `app/game.py`, `app/guard_agent.py` |
 | Written article on Builder Center | DRAFT READY | `docs/ARTICLE.md` (paste in) |
 | Public repo with source + reusable decision pattern | DONE | https://github.com/simplynadaf/the-checkpoint, `patterns/suspicion_gate.py` |
+| Public live demo (static replay, zero setup) | LIVE | https://simplynadaf.github.io/the-checkpoint/ |
 | Public demo video under three minutes | FOOTAGE READY | `docs/the-checkpoint-gameplay.mp4` (2:06) add voiceover from `docs/DEMO_SCRIPT.md` |
 | One declared decision pattern | DONE | `#policy` (also demonstrates `#guardrails`) |
 | Original agent, not published before | DONE | verified unbuilt |
