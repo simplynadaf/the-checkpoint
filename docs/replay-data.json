@@ -1,0 +1,56 @@
+{
+  "honest": [
+    {
+      "you": "Evening officer, I am just heading home after visiting my mother in the next town.",
+      "suspicion": 0.245,
+      "consistent": 0.845,
+      "reaction": "wave_through",
+      "conf": 0.632,
+      "meter": 0.268,
+      "outcome": "passed",
+      "latency_ms": 10956
+    }
+  ],
+  "liar": [
+    {
+      "you": "Evening. I am a tourist, just arrived today for a short holiday.",
+      "suspicion": 0.242,
+      "consistent": 0.869,
+      "reaction": "wave_through",
+      "conf": 0.294,
+      "meter": 0.243,
+      "outcome": "continue",
+      "latency_ms": 10877
+    },
+    {
+      "you": "I have lived in this city my whole life, officer, you can trust me.",
+      "suspicion": 0.321,
+      "consistent": 0.802,
+      "reaction": "wave_through",
+      "conf": 0.641,
+      "meter": 0.38,
+      "outcome": "continue",
+      "latency_ms": 11217
+    },
+    {
+      "you": "That bag is not mine. I have never seen it before in my life.",
+      "suspicion": 0.421,
+      "consistent": 0.735,
+      "reaction": "demand_document",
+      "conf": 0.349,
+      "meter": 0.543,
+      "outcome": "continue",
+      "latency_ms": 11709
+    },
+    {
+      "you": "There is nothing inside it, and also it is full of my own clothes.",
+      "suspicion": 0.423,
+      "consistent": 0.751,
+      "reaction": "wave_through",
+      "conf": 0.161,
+      "meter": 0.601,
+      "outcome": "continue",
+      "latency_ms": 12250
+    }
+  ]
+}
