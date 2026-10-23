@@ -1,9 +1,12 @@
 # The guard that cannot be sweet-talked: a game where Strands Decider 2B makes every call
 
-> Builder Center article draft for the Agent Experience Hackathon: Strands Decider.
-> Tags: `#strands-decider-2b` `#policy`
+> Builder Center submission for the Agent Experience Hackathon: Strands Decider.
+> Tags: `#strands-decider-2b` `#policy`. Cover image: `docs/banner.png` (1200x630).
+> Paste everything below the line into the article body.
 
-## The problem I wanted to feel
+---
+
+## The problem I wanted to fix
 
 Give a language model a character to play and it will get talked into anything. If you have
 ever bolted an LLM onto a game NPC, you have seen it: a player types one confident sentence
@@ -133,7 +136,17 @@ Bedrock writes the words. Decider 2B makes the call.
 
 ## Try it
 
-Code, the reusable pattern, and a sub three minute demo are in the repo. Clone it, start the
-Decider server, start the web game, and see how long it takes you to get past Sergeant Vance.
+Code, the reusable pattern, and a two minute narrated demo are in the repo. There is also a
+zero-setup live replay you can open right now, built from real recorded model output.
 
-Repo: https://github.com/simplynadaf/the-checkpoint
+- Live demo (no setup): https://simplynadaf.github.io/the-checkpoint/
+- Repo (source + the SuspicionGate pattern): https://github.com/simplynadaf/the-checkpoint
+- Demo video: [add your upload link here]
+
+Clone it, start the Decider server, start the web game, and see how long it takes you to get
+past Sergeant Vance.
+
+---
+
+*Built by Sarvar Nadaf, Cloud Architect working in Cloud, AI Infrastructure, and DevOps.*
+*[Portfolio](https://sarvarnadaf.com) · [GitHub](https://github.com/simplynadaf) · [LinkedIn](https://www.linkedin.com/in/sarvar04/)*
